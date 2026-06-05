@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment History — Valentin</title>
+  <style>
+    :root {
+      --bg:        #080808;
+      --surface:   #131313;
+      --card:      #1c1c1c;
+      --input-bg:  #252525;
+      --border:    #2e2e2e;
+      --border-hi: #c9922a;
+      --text:      #f9f9f9;
+      --muted:     #888888;
+      --dim:       #515151;
+      --accent:    #e0a030;
+      --gold:      #e0a030;
+      --gold-light:#f5c050;
+      --gold-dark: #9a6e20;
+      --red:       #e85555;
+      --green:     #3dba6a;
+      --r:         6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--gold-dark);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 24px rgba(0,0,0,0.6);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; flex: 1; }
+
+    .logo {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #1e1c14 0%, #0a0908 100%);
+      border: 1px solid var(--gold-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: var(--gold); flex-shrink: 0;
+      box-shadow: inset 0 1px 0 rgba(201,169,110,0.15);
+    }
+
+    .brand-text h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.06em; }
+    .brand-text p  { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .header-center { flex: 1; text-align: center; }
+    .header-center h2 {
+      font-size: 11px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--gold);
+    }
+
+    .btn {
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px; font-weight: 500;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .btn:hover { border-color: var(--gold-dark); color: var(--gold); }
+    .btn-primary {
+      background: linear-gradient(135deg, #c9a96e 0%, #a87d3a 100%);
+      border-color: var(--gold);
+      color: #0a0808;
+      font-weight: 600;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-danger { background: transparent; border-color: #5a2820; color: #c0392b; }
+    .btn-danger:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 56px;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty h3 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .empty p  { font-size: 14px; margin-bottom: 24px; }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .count-badge {
+      background: var(--card);
+      border: 1px solid var(--gold-dark);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: var(--gold-dark);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-input {
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 7px 12px 7px 34px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      width: 220px;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+    .search-input::placeholder { color: var(--dim); }
+
+    .search-icon {
+      position: absolute;
+      left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--dim);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── ASSESSMENT CARD ── */
+    .assessment-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .assessment-card:hover {
+      border-color: var(--gold-dark);
+      box-shadow: 0 4px 24px rgba(201,169,110,0.08);
+    }
+
+    .card-top {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      background: linear-gradient(90deg, rgba(201,169,110,0.03) 0%, transparent 60%);
+    }
+
+    .card-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+
+    .card-date {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .score-pill {
+      background: var(--card);
+      border: 1px solid var(--gold-dark);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .score-pill .denom { font-size: 11px; color: var(--muted); font-weight: 300; }
+
+    .card-bottom {
+      padding: 12px 18px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    /* ── CONFIRM OVERLAY ── */
+    .confirm-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-overlay.open { display: flex; }
+
+    .confirm-box {
+      background: var(--surface);
+      border: 1px solid var(--gold-dark);
+      border-radius: 12px;
+      padding: 28px 32px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.8);
+    }
+    .confirm-box h3 { font-size: 16px; margin-bottom: 8px; }
+    .confirm-box p  { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .confirm-actions { display: flex; gap: 10px; justify-content: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .header-center { display: none; }
+      .search-input { width: 160px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">V</div>
+      <div class="brand-text">
+        <h1>Valentin</h1>
+        <p>Sport Coaching</p>
+      </div>
+    </div>
+    <div class="header-center">
+      <h2>Assessment History</h2>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="bilan.html">&#43; New Assessment</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- TOOLBAR -->
+  <div class="toolbar" id="toolbar" style="display:none">
+    <div class="toolbar-left">
+      <span class="count-badge" id="count-badge">0 assessments</span>
+      <div class="search-wrap">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-input" id="search" placeholder="Search by name…" oninput="filterCards()">
+      </div>
+    </div>
+    <button class="btn btn-danger" onclick="clearAllPrompt()">&#128465; Clear all</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" id="grid"></div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty" id="empty-state">
+    <div class="empty-icon">&#128203;</div>
+    <h3>No assessments saved yet</h3>
+    <p>Complete a bilan and click <strong>Save</strong> to archive it here.</p>
+    <a class="btn btn-primary" href="bilan.html">&#43; Start an Assessment</a>
+  </div>
+</main>
+
+<!-- DELETE CONFIRM -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <h3>Delete this assessment?</h3>
+    <p id="confirm-msg">This cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const HIST_KEY = 'val-bilan-history';
+const MAX_TOTAL = 75; // keep in sync with bilan.html
+
+let pendingDeleteId = null;
+let allEntries = [];
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); } catch (_) { return []; }
+}
+
+function saveHistory(arr) {
+  try { localStorage.setItem(HIST_KEY, JSON.stringify(arr)); } catch (_) {}
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  // iso can be "2026-05-28" or full ISO
+  const d = new Date(iso.length === 10 ? iso + 'T12:00:00' : iso);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function scoreColor(total) {
+  const pct = total / MAX_TOTAL;
+  if (pct >= 0.75) return '#c9a96e';
+  if (pct >= 0.50) return '#a07840';
+  if (pct >= 0.25) return '#6a5230';
+  return '#4a4438';
+}
+
+function makeCard(entry) {
+  const card = document.createElement('div');
+  card.className = 'assessment-card';
+  card.dataset.id = entry.id;
+  card.dataset.name = (entry.name || '').toLowerCase();
+
+  const color = scoreColor(entry.total || 0);
+
+  card.innerHTML = `
+    <div class="card-top">
+      <div>
+        <div class="card-name">${escHtml(entry.name || 'Unnamed')}</div>
+        <div class="card-date">
+          ${formatDate(entry.date)}
+          <span style="color:var(--dim);margin-left:8px">Saved ${formatDate(entry.savedAt)}</span>
+        </div>
+      </div>
+      <div class="score-pill" style="color:${color}">
+        ${entry.total ?? '—'}<span class="denom"> / ${MAX_TOTAL}</span>
+      </div>
+    </div>
+    <div class="card-bottom">
+      <button class="btn btn-danger" onclick="deletePrompt('${entry.id}', '${escAttr(entry.name || 'Unnamed')}')">
+        &#128465; Delete
+      </button>
+      <a class="btn" href="bilan.html?load=${entry.id}">&#128065; View</a>
+      <a class="btn btn-primary" href="bilan.html?load=${entry.id}" onclick="window.open('bilan.html?load=${entry.id}','_blank');return false;">
+        &#128196; Print
+      </a>
+    </div>`;
+
+  return card;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) {
+  return str.replace(/'/g,"\\'");
+}
+
+function render(entries) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  entries.forEach(e => grid.appendChild(makeCard(e)));
+}
+
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const filtered = q ? allEntries.filter(e => (e.name || '').toLowerCase().includes(q)) : allEntries;
+  render(filtered);
+  document.getElementById('count-badge').textContent =
+    `${filtered.length} assessment${filtered.length !== 1 ? 's' : ''}`;
+}
+
+function init() {
+  allEntries = getHistory();
+  const empty   = document.getElementById('empty-state');
+  const toolbar = document.getElementById('toolbar');
+
+  if (allEntries.length === 0) {
+    empty.style.display   = 'block';
+    toolbar.style.display = 'none';
+  } else {
+    empty.style.display   = 'none';
+    toolbar.style.display = 'flex';
+    document.getElementById('count-badge').textContent =
+      `${allEntries.length} assessment${allEntries.length !== 1 ? 's' : ''}`;
+    render(allEntries);
+  }
+}
+
+/* ── DELETE ── */
+function deletePrompt(id, name) {
+  pendingDeleteId = id;
+  document.getElementById('confirm-msg').textContent =
+    `"${name}" will be permanently deleted.`;
+  document.getElementById('confirm-ok').onclick = confirmDelete;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm() {
+  pendingDeleteId = null;
+  document.getElementById('confirm-overlay').classList.remove('open');
+}
+
+function confirmDelete() {
+  if (!pendingDeleteId) return;
+  allEntries = allEntries.filter(e => e.id !== pendingDeleteId);
+  saveHistory(allEntries);
+  closeConfirm();
+  init();
+}
+
+function clearAllPrompt() {
+  pendingDeleteId = '__all__';
+  document.getElementById('confirm-msg').textContent =
+    'All saved assessments will be permanently deleted.';
+  document.getElementById('confirm-ok').onclick = () => {
+    localStorage.removeItem(HIST_KEY);
+    allEntries = [];
+    closeConfirm();
+    init();
+  };
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

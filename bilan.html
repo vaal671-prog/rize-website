@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Initial Assessment — Valentin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Bodoni+Moda:opsz,wght@6..96,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #0f0f0f;
+      --surface:    #1a1a1a;
+      --surface-hd: #141414;
+      --card:       #222222;
+      --input-bg:   #2c2c2c;
+      --border:     #333333;
+      --border-hi:  #e0a030;
+      --text:       #ffffff;
+      --muted:      #8a8a8a;
+      --dim:        #555555;
+      --gold:       #e0a030;
+      --gold-light: #f5c050;
+      --gold-dark:  #9a6e20;
+      --gold-glow:  rgba(224,160,48,0.15);
+      --red:        #ef4444;
+      --orange:     #f97316;
+      --yellow:     #e0a030;
+      --green:      #22c55e;
+      --r:          8px;
+      --r-lg:       12px;
+      --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-serif:   'Bodoni Moda', Georgia, serif;
+      --ease:         cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: rgba(15,15,15,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      position: sticky; top: 0; z-index: 100;
+      print-color-adjust: exact;
+    }
+
+    .header-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 140px; }
+
+    .logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #1a1a1a; border: 1px solid var(--gold-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-weight: 700;
+      font-size: 16px; color: var(--gold); flex-shrink: 0;
+      print-color-adjust: exact;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text); line-height: 1.1;
+    }
+    .brand-text p { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .header-doc { flex: 1; text-align: center; }
+    .header-doc h2 {
+      font-family: var(--font-display); font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.28em; color: var(--muted);
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .total-badge {
+      background: var(--surface-hd); border: 1px solid var(--gold-dark);
+      border-radius: 20px; padding: 5px 16px;
+      font-size: 17px; font-weight: 700; color: var(--gold);
+      white-space: nowrap; letter-spacing: 0.02em;
+    }
+    .total-badge .max { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 7px 14px; border: 1px solid var(--border);
+      border-radius: var(--r); background: transparent;
+      color: var(--muted); cursor: pointer;
+      font-family: var(--font-body); font-size: 13px; font-weight: 500;
+      transition: all 0.15s var(--ease);
+      white-space: nowrap; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn svg { flex-shrink: 0; opacity: 0.6; transition: opacity 0.15s; }
+    .btn:hover { border-color: var(--border-hi); color: var(--text); }
+    .btn:hover svg { opacity: 1; }
+
+    .btn-primary {
+      background: var(--gold); border-color: var(--gold);
+      color: #0a0a0a; font-weight: 700;
+    }
+    .btn-primary svg { opacity: 1; }
+    .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); color: #0a0a0a; }
+
+    .btn-save {
+      border-color: var(--gold-dark); color: var(--gold); font-weight: 600;
+    }
+    .btn-save svg { opacity: 1; color: var(--gold); }
+    .btn-save:hover { background: var(--gold-glow); border-color: var(--gold); color: var(--gold-light); }
+    .btn-save.saved { color: var(--green); border-color: var(--green); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1000px; margin: 0 auto;
+      padding: 20px 16px 60px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-hd);
+      border-left: 4px solid var(--gold);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--gold);
+    }
+
+    .section-right { display: flex; align-items: center; gap: 12px; }
+
+    /* Progress badge per section */
+    .section-progress {
+      font-size: 12px; font-weight: 600;
+      color: var(--muted); letter-spacing: 0.04em;
+      font-family: var(--font-body);
+    }
+    .section-progress.done { color: var(--green); }
+
+    .section-score {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700; color: var(--text);
+    }
+    .section-score .max { font-size: 13px; color: var(--muted); font-weight: 400; }
+
+    .section-body { padding: 14px 16px; }
+
+    /* ── CLIENT GRID ── */
+    .client-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .client-grid .span2 { grid-column: span 2; }
+
+    .field label {
+      display: block; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--muted); margin-bottom: 5px;
+      font-family: var(--font-body);
+    }
+
+    .field input, .field textarea {
+      width: 100%; background: var(--input-bg);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 11px 14px; color: var(--text);
+      font-size: 15px; font-family: var(--font-body);
+      transition: border-color 0.15s, box-shadow 0.15s; resize: vertical;
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-glow);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: var(--dim); }
+    .field textarea { min-height: 80px; }
+
+    /* ── SUBSECTION LABEL ── */
+    .sub-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--gold-dark); padding: 10px 0 8px;
+      border-bottom: 1px solid var(--border); margin-bottom: 6px;
+      font-family: var(--font-display);
+    }
+    .sub-label + .sub-label { margin-top: 16px; }
+
+    /* ── TEST ROW ── */
+    .test-row {
+      display: flex; align-items: center;
+      padding: 11px 14px; gap: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 4px solid var(--border);
+      border-radius: var(--r); margin-bottom: 6px;
+      transition: border-color 0.15s, border-left-color 0.2s;
+    }
+    .test-row:last-child { margin-bottom: 0; }
+    .test-row:hover { border-color: #444; }
+
+    /* Scored row states — instant visual feedback */
+    .test-row.scored-0 { border-left-color: var(--red); }
+    .test-row.scored-1 { border-left-color: var(--orange); }
+    .test-row.scored-2 { border-left-color: var(--gold); }
+    .test-row.scored-3 { border-left-color: var(--green); }
+
+    .test-name {
+      flex: 1; font-size: 15px; font-weight: 500; color: var(--text);
+      min-width: 130px;
+    }
+
+    /* ── BILATERAL ROW ── */
+    .bilateral-row {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; padding: 11px 14px; gap: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 4px solid var(--border);
+      border-radius: var(--r); margin-bottom: 6px;
+      transition: border-color 0.15s;
+    }
+    .bilateral-row:last-child { margin-bottom: 0; }
+    .bilateral-row:hover { border-color: #444; }
+
+    .bilateral-name { font-size: 15px; font-weight: 500; color: var(--text); }
+    .bilateral-sides { display: flex; gap: 12px; flex-wrap: wrap; }
+    .side-col { display: flex; align-items: center; gap: 6px; }
+    .side-label {
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em; min-width: 12px;
+    }
+
+    /* ── SCORE BUTTONS — large touch targets ── */
+    .score-group { display: flex; gap: 6px; }
+
+    .score-btn {
+      min-width: 52px; height: 48px;       /* 48px = comfortable touch target */
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      background: var(--surface-hd);
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      cursor: pointer;
+      transition: all 0.12s var(--ease);
+      padding: 0 8px;
+      touch-action: manipulation;
+    }
+
+    .score-btn:hover { transform: scale(1.05); }
+    .score-btn:active { transform: scale(0.96); }
+
+    .score-btn.s0:not(.active):hover { border-color: var(--red);    color: var(--red);    background: rgba(239,68,68,0.1); }
+    .score-btn.s1:not(.active):hover { border-color: var(--orange); color: var(--orange); background: rgba(249,115,22,0.1); }
+    .score-btn.s2:not(.active):hover { border-color: var(--gold);   color: var(--gold);   background: rgba(224,160,48,0.1); }
+    .score-btn.s3:not(.active):hover { border-color: var(--green);  color: var(--green);  background: rgba(34,197,94,0.1); }
+
+    .score-btn.s0.active { background: var(--red);    border-color: var(--red);    color: #fff; }
+    .score-btn.s1.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .score-btn.s2.active { background: var(--gold);   border-color: var(--gold);   color: #0a0a0a; }
+    .score-btn.s3.active { background: var(--green);  border-color: var(--green);  color: #fff; }
+
+    /* ── FREE FIELDS ── */
+    .free-fields { display: flex; flex-direction: column; gap: 12px; }
+
+    .ff-label {
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--muted); margin-bottom: 5px; display: block;
+      font-family: var(--font-body);
+    }
+
+    .ff-input, .ff-textarea {
+      width: 100%; background: var(--input-bg);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 11px 14px; color: var(--text);
+      font-size: 15px; font-family: var(--font-body);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .ff-input:focus, .ff-textarea:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-glow);
+    }
+    .ff-input::placeholder, .ff-textarea::placeholder { color: var(--dim); }
+    .ff-textarea { resize: vertical; min-height: 76px; }
+
+    /* ── FINAL SCORE ── */
+    .final-display { text-align: center; padding: 36px 16px 28px; }
+
+    .final-number {
+      font-family: var(--font-serif);
+      font-size: 96px; font-weight: 700; line-height: 1;
+      background: linear-gradient(135deg, #f5c050, #e0a030, #9a6e20);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: inline-block;
+      transition: all 0.3s var(--ease);
+    }
+
+    .final-denom {
+      font-size: 28px; color: var(--muted); font-weight: 300;
+      vertical-align: bottom; margin-bottom: 10px;
+    }
+
+    .final-breakdown {
+      display: flex; justify-content: center; gap: 40px;
+      margin-top: 28px; flex-wrap: wrap;
+    }
+
+    .bd-item { text-align: center; }
+    .bd-val { font-size: 24px; font-weight: 700; color: var(--text); }
+    .bd-lbl {
+      font-family: var(--font-display);
+      font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.2em;
+      margin-top: 4px; font-weight: 600;
+    }
+
+    /* ── PAGE ACTIONS ── */
+    .page-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── NUMBER SELECT ── */
+    .num-select {
+      background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 10px 12px;
+      color: var(--text); font-size: 15px; font-family: var(--font-body);
+      cursor: pointer; min-width: 100px; appearance: auto;
+      transition: border-color 0.15s;
+    }
+    .num-select:focus { outline: none; border-color: var(--gold); }
+
+    /* ── MOVEMENT QUALITY CARDS ── */
+    .movement-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .mv-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 14px 12px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .mv-card.scored-0 { border-top: 3px solid var(--red); }
+    .mv-card.scored-1 { border-top: 3px solid var(--orange); }
+    .mv-card.scored-2 { border-top: 3px solid var(--gold); }
+    .mv-card.scored-3 { border-top: 3px solid var(--green); }
+
+    .mv-card-title {
+      font-family: var(--font-display);
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+    }
+
+    .mv-card .score-group { flex-wrap: wrap; gap: 5px; }
+    .mv-card .score-btn { min-width: 0; height: 44px; font-size: 15px; flex: 1; }
+
+    .mv-card-notes {
+      width: 100%; background: var(--input-bg);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 8px 10px; color: var(--text);
+      font-size: 13px; font-family: var(--font-body);
+      resize: vertical; min-height: 52px;
+      transition: border-color 0.15s;
+    }
+    .mv-card-notes:focus { outline: none; border-color: var(--gold); }
+    .mv-card-notes::placeholder { color: var(--dim); }
+
+    @media (max-width: 640px) {
+      .movement-grid { grid-template-columns: repeat(2, 1fr); }
+      .score-btn { min-width: 44px; height: 44px; font-size: 15px; }
+    }
+
+    @media print {
+      .num-select {
+        background: #f9f9f9 !important;
+        border: 1px solid #ccc;
+        color: #000;
+      }
+      .mv-card {
+        background: #f9f9f9 !important;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
+      .mv-card-notes {
+        background: #fff !important;
+        border: 1px solid #ccc;
+        color: #000;
+      }
+    }
+
+    /* ── PRINT SCORE DISPLAY ── */
+    .print-val { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      header { padding: 9px 14px; }
+      .header-doc { display: none; }
+      .client-grid { grid-template-columns: 1fr; }
+      .client-grid .span2 { grid-column: span 1; }
+
+      .bilateral-row { grid-template-columns: 1fr; gap: 6px; }
+      .bilateral-sides { gap: 10px; }
+
+      .section-body { padding: 12px 14px; }
+      .score-btn { min-width: 38px; height: 32px; font-size: 11px; padding: 0 7px; }
+      .final-number { font-size: 68px; }
+      .final-breakdown { gap: 20px; }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       PRINT / PDF STYLES
+    ───────────────────────────────────────────────────────── */
+    @media print {
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+      body { background: #fff; color: #000; font-size: 10px; }
+
+      header {
+        position: static;
+        background: #fff;
+        border-bottom: 2px solid #000;
+        padding: 10px 20px;
+      }
+      .logo { background: #000 !important; }
+      .brand-text h1 { color: #000; }
+      .brand-text p  { color: #555; }
+      .header-doc h2 { color: #333; }
+
+      /* Hide interactive elements */
+      .btn, .btn-primary, .btn-save, .page-actions { display: none !important; }
+      .total-badge { border: 1px solid #999; background: #f5f5f5; }
+      .total-badge .max { color: #555; }
+
+      main { padding: 12px 0; gap: 12px; max-width: 100%; }
+
+      .section {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        background: #fff;
+      }
+
+      .section-header { background: #f4f4f4; border-bottom: 1px solid #ccc; padding: 8px 14px; }
+      .section-title { color: #333; }
+      .section-score { color: #000; }
+      .section-score .max { color: #555; }
+
+      .section-body { padding: 10px 14px; }
+
+      /* Score buttons: hide all, show only active as chip */
+      .score-group { display: inline-flex; gap: 3px; }
+      .score-btn { display: none; }
+      .score-btn.active {
+        display: inline-block !important;
+        padding: 1px 8px;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 4px;
+        height: auto;
+        min-width: 0;
+      }
+      .score-btn.s0.active { background: #fecaca !important; border-color: #f85149; color: #7f1d1d; }
+      .score-btn.s1.active { background: #fed7aa !important; border-color: #f0883e; color: #7c2d12; }
+      .score-btn.s2.active { background: #fef08a !important; border-color: #d29922; color: #713f12; }
+      .score-btn.s3.active { background: #bbf7d0 !important; border-color: #3fb950; color: #14532d; }
+
+      /* Show print-val if no score set */
+      .print-val { display: none; }
+      .score-group:not([data-scored]) .print-val { display: inline; color: #999; font-size: 10px; margin-left: 4px; }
+
+      .sub-label { color: var(--accent); border-bottom: 1px solid #ccc; }
+      .bilateral-sides { gap: 10px; }
+      .side-label { color: #555; }
+
+      .final-number {
+        background: linear-gradient(135deg, #388bfd, #a371f7) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-size: 60px;
+      }
+      .final-denom { color: #555; }
+      .bd-lbl { color: #555; }
+
+      .ff-input, .ff-textarea, .field input, .field textarea {
+        background: #f9f9f9 !important;
+        border: 1px solid #ccc;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">V</div>
+      <div class="brand-text">
+        <h1>Valentin</h1>
+        <p>Sport Coaching</p>
+      </div>
+    </div>
+
+    <div class="header-doc">
+      <h2>Initial Assessment</h2>
+    </div>
+
+    <div class="header-right">
+      <div class="total-badge">
+        <span id="hdr-total">0</span><span class="max"> / <span id="hdr-max">96</span></span>
+      </div>
+      <a class="btn" href="history.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+        History
+      </a>
+      <button class="btn" onclick="resetAll()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        New
+      </button>
+      <button class="btn btn-save" id="btn-save" onclick="saveToHistory()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save
+      </button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        PDF
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════ -->
+<main>
+
+  <!-- ── CLIENT INFO ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Client Info</span>
+    </div>
+    <div class="section-body">
+      <div class="client-grid">
+        <div class="field">
+          <label>Client Name</label>
+          <input type="text" id="c-name" placeholder="First Last">
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="c-date">
+        </div>
+        <div class="field span2">
+          <label>Main Goal</label>
+          <input type="text" id="c-goal" placeholder="E.g. Muscle gain, performance, return to sport…">
+        </div>
+        <div class="field span2">
+          <label>Pain / Injuries</label>
+          <textarea id="c-injuries" placeholder="Painful areas, history, limitations…"></textarea>
+        </div>
+        <div class="field span2">
+          <label>General Notes</label>
+          <textarea id="c-notes" placeholder="Level, training frequency, sports history…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── POSTURE ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Posture</span>
+      <div class="section-right">
+        <span class="section-progress" id="prog-posture">0/6</span>
+        <span class="section-score"><span id="score-posture">0</span><span class="max"> / 18</span></span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div id="posture-tests" class="tests-wrap"></div>
+    </div>
+  </div>
+
+  <!-- ── MOBILITY ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Mobility</span>
+      <div class="section-right">
+        <span class="section-progress" id="prog-mobility">0/13</span>
+        <span class="section-score"><span id="score-mobility">0</span><span class="max"> / 45</span></span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sub-label">Lower Body</div>
+      <div id="mob-lower" class="tests-wrap"></div>
+      <div class="sub-label" style="margin-top:18px">Upper Body</div>
+      <div id="mob-upper" class="tests-wrap"></div>
+    </div>
+  </div>
+
+  <!-- ── MOVEMENT QUALITY ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Movement Quality</span>
+      <div class="section-right">
+        <span class="section-progress" id="prog-movement">0/4</span>
+        <span class="section-score"><span id="score-movement">0</span><span class="max"> / 12</span></span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div id="movement-tests" class="tests-wrap"></div>
+      <div style="margin-top:14px">
+        <label class="ff-label">Movement Notes</label>
+        <textarea id="mov-notes" class="ff-textarea" placeholder="Observations on movement quality, compensations, asymmetries…"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CORE & STABILITY ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Core &amp; Stability</span>
+    </div>
+    <div class="section-body">
+      <div class="free-fields">
+        <div>
+          <label class="ff-label">Plank / Deadbug</label>
+          <textarea id="core-plank" class="ff-textarea" placeholder="Duration, quality, observations…"></textarea>
+        </div>
+        <div>
+          <label class="ff-label">Blind Balance Test</label>
+          <textarea id="core-balance" class="ff-textarea" placeholder="Duration, dominant side, corrections…"></textarea>
+        </div>
+        <div>
+          <label class="ff-label">Core / Stability Notes</label>
+          <textarea id="core-notes" class="ff-textarea" placeholder="Additional notes…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONDITIONING ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Conditioning</span>
+    </div>
+    <div class="section-body">
+      <div class="free-fields">
+        <div>
+          <label class="ff-label">Walking 6 min or Run 1 mile</label>
+          <input type="text" id="cond-run" class="ff-input" placeholder="Time, distance, pace…">
+        </div>
+        <div>
+          <label class="ff-label">Bike / Row Test — Max cal 1 min / 500 m</label>
+          <input type="text" id="cond-bike" class="ff-input" placeholder="Score, time, watts…">
+        </div>
+        <div>
+          <label class="ff-label">HR Recovery</label>
+          <input type="text" id="cond-hr" class="ff-input" placeholder="Resting HR, max HR, 1-min recovery…">
+        </div>
+        <div>
+          <label class="ff-label">Breathing / Pacing</label>
+          <input type="text" id="cond-breath" class="ff-input" placeholder="Breathing pattern, pacing observations…">
+        </div>
+        <div>
+          <label class="ff-label">Conditioning Notes</label>
+          <textarea id="cond-notes" class="ff-textarea" placeholder="Additional notes…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCORE FINAL ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Final Score</span>
+    </div>
+    <div class="section-body">
+      <div class="final-display">
+        <div>
+          <span class="final-number" id="final-num">0</span><span class="final-denom"> / <span id="final-max">96</span></span>
+        </div>
+        <div class="final-breakdown">
+          <div class="bd-item">
+            <div class="bd-val"><span id="bd-posture">0</span><span style="color:var(--dim);font-size:14px;font-weight:400">/18</span></div>
+            <div class="bd-lbl">Posture</div>
+          </div>
+          <div class="bd-item">
+            <div class="bd-val"><span id="bd-mobility">0</span><span style="color:var(--dim);font-size:14px;font-weight:400">/45</span></div>
+            <div class="bd-lbl">Mobility</div>
+          </div>
+          <div class="bd-item">
+            <div class="bd-val"><span id="bd-movement">0</span><span style="color:var(--dim);font-size:14px;font-weight:400">/12</span></div>
+            <div class="bd-lbl">Movement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COACH NOTES ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Coach Notes</span>
+    </div>
+    <div class="section-body">
+      <div class="free-fields">
+        <div>
+          <label class="ff-label">Main Limitations</label>
+          <textarea id="coach-lim" class="ff-textarea" placeholder="Main limitations identified…"></textarea>
+        </div>
+        <div>
+          <label class="ff-label">Main Strengths</label>
+          <textarea id="coach-str" class="ff-textarea" placeholder="Client's strengths…"></textarea>
+        </div>
+        <div>
+          <label class="ff-label">Recommended Focus</label>
+          <textarea id="coach-focus" class="ff-textarea" placeholder="Priority training focuses…"></textarea>
+        </div>
+        <div>
+          <label class="ff-label">Corrective Work</label>
+          <textarea id="coach-corr" class="ff-textarea" placeholder="Recommended corrective exercises…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ACTIONS ── -->
+  <div class="page-actions">
+    <button class="btn" onclick="resetAll()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      New Assessment
+    </button>
+    <button class="btn btn-primary" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Export / Print
+    </button>
+  </div>
+
+</main>
+
+<script>
+/* ================================================================
+   DATA DEFINITIONS
+================================================================ */
+const POSTURE_TESTS = [
+  { id: 'p_head',       label: 'Head / Neck' },
+  { id: 'p_shoulders',  label: 'Shoulders' },
+  { id: 'p_thoracic',   label: 'Thoracic' },
+  { id: 'p_pelvis',     label: 'Pelvis' },
+  { id: 'p_knees',      label: 'Knees' },
+  { id: 'p_feet',       label: 'Feet' },
+];
+
+const MOB_LOWER = [
+  { id: 'ml_lumb',    label: 'Standing Lumbopelvic Flexion', single: true },
+  { id: 'ml_ankle',   label: 'Ankle Dorsiflexion' },
+  { id: 'ml_kbt',     label: 'Kneeling Butt to Heel', single: true },
+  { id: 'ml_phb',     label: 'Prone Heel to Butt' },
+  { id: 'ml_hipflex', label: 'Supine Hip Flexion' },
+];
+
+const MOB_UPPER = [
+  { id: 'mu_sflex', label: 'Shoulder Flexion' },
+  { id: 'mu_sabd',  label: 'Shoulder Abduction' },
+  { id: 'mu_trot',  label: 'Thoracic Rotation', single: true },
+  { id: 'mu_wext',  label: 'Wrist Extension' },
+];
+
+const MOVEMENT_TESTS = [
+  { id: 'mv_ohs',   label: 'OHS' },
+  { id: 'mv_rdl',   label: 'SL RDL' },
+  { id: 'mv_step',  label: 'Step Test 96bpm' },
+  { id: 'mv_push',  label: 'Push-Up Max Reps', numeric: true },
+  { id: 'mv_trx',   label: 'TRX Row / Band Pull', numeric: true },
+  { id: 'mv_coord', label: 'Coordination / Control' },
+];
+
+/* All test IDs for total calculation */
+const POSTURE_IDS   = POSTURE_TESTS.map(t => t.id);
+const MOB_LOWER_IDS = MOB_LOWER.flatMap(t => t.single ? [t.id] : [t.id + '_l', t.id + '_r']);
+const MOB_UPPER_IDS = MOB_UPPER.flatMap(t => t.single ? [t.id] : [t.id + '_l', t.id + '_r']);
+const MOBILITY_IDS  = [...MOB_LOWER_IDS, ...MOB_UPPER_IDS];
+/* Only non-numeric tests are scored 0-3 */
+const MOVEMENT_IDS  = MOVEMENT_TESTS.filter(t => !t.numeric).map(t => t.id);
+/* Mobility max:
+   Lower: lumb(3)+ankle(6)+kbt(3)+phb(6)+hipflex(6) = 24
+   Upper: sflex(6)+sabd(6)+trot(3)+wext(6) = 21  → total 45
+   Movement Quality: 4 scored tests × /3 = 12 */
+const MAX_TOTAL     = 18 + 45 + 12; // 75
+
+const scores = {};
+
+/* ================================================================
+   SCORE GROUP FACTORY
+================================================================ */
+const SCORE_OPTS = [
+  { v: 0, cls: 's0' },
+  { v: 1, cls: 's1' },
+  { v: 2, cls: 's2' },
+  { v: 3, cls: 's3' },
+];
+
+function makeScoreGroup(testId) {
+  const wrap = document.createElement('div');
+  wrap.className = 'score-group';
+  wrap.dataset.test = testId;
+
+  SCORE_OPTS.forEach(({ v, cls }) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `score-btn ${cls}`;
+    btn.dataset.value = v;
+    btn.textContent = v;
+    btn.addEventListener('click', () => {
+      wrap.querySelectorAll('.score-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      scores[testId] = v;
+      wrap.dataset.scored = '1';
+      /* Mark parent row with score color */
+      const row = wrap.closest('.test-row, .bilateral-row, .mv-card');
+      if (row) {
+        row.className = row.className.replace(/\bscored-\d\b/g, '');
+        row.classList.add(`scored-${v}`);
+      }
+      recalc();
+      updateProgress();
+      persist();
+    });
+    wrap.appendChild(btn);
+  });
+
+  return wrap;
+}
+
+/* ================================================================
+   ROW BUILDERS
+================================================================ */
+function makeMovementCard(test) {
+  const card = document.createElement('div');
+  card.className = 'mv-card';
+
+  const title = document.createElement('div');
+  title.className = 'mv-card-title';
+  title.textContent = test.label;
+  card.appendChild(title);
+
+  if (test.numeric) {
+    /* 0–200 dropdown */
+    const sel = document.createElement('select');
+    sel.className = 'num-select';
+    sel.id = 'sel_' + test.id;
+    for (let i = 0; i <= 200; i++) {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = i;
+      sel.appendChild(opt);
+    }
+    sel.addEventListener('change', persist);
+    card.appendChild(sel);
+  } else {
+    card.appendChild(makeScoreGroup(test.id));
+  }
+
+  const notes = document.createElement('textarea');
+  notes.className = 'mv-card-notes';
+  notes.id = 'mnote_' + test.id;
+  notes.placeholder = 'Notes…';
+  notes.addEventListener('input', persist);
+  card.appendChild(notes);
+
+  return card;
+}
+
+function makeSingleRow(test) {
+  const row = document.createElement('div');
+  row.className = 'test-row';
+
+  const name = document.createElement('span');
+  name.className = 'test-name';
+  name.textContent = test.label;
+
+  row.appendChild(name);
+  row.appendChild(makeScoreGroup(test.id));
+  return row;
+}
+
+function makeBilateralRow(test) {
+  const row = document.createElement('div');
+  row.className = 'bilateral-row';
+
+  const name = document.createElement('span');
+  name.className = 'bilateral-name';
+  name.textContent = test.label;
+
+  const sides = document.createElement('div');
+  sides.className = 'bilateral-sides';
+
+  ['L', 'R'].forEach(s => {
+    const col = document.createElement('div');
+    col.className = 'side-col';
+
+    const lbl = document.createElement('span');
+    lbl.className = 'side-label';
+    lbl.textContent = s;
+
+    col.appendChild(lbl);
+    col.appendChild(makeScoreGroup(test.id + '_' + s.toLowerCase()));
+    sides.appendChild(col);
+  });
+
+  row.appendChild(name);
+  row.appendChild(sides);
+  return row;
+}
+
+/* ================================================================
+   RENDER
+================================================================ */
+function render() {
+  const postureWrap = document.getElementById('posture-tests');
+  POSTURE_TESTS.forEach(t => postureWrap.appendChild(makeSingleRow(t)));
+
+  const lowerWrap = document.getElementById('mob-lower');
+  MOB_LOWER.forEach(t => lowerWrap.appendChild(t.single ? makeSingleRow(t) : makeBilateralRow(t)));
+
+  const upperWrap = document.getElementById('mob-upper');
+  MOB_UPPER.forEach(t => upperWrap.appendChild(t.single ? makeSingleRow(t) : makeBilateralRow(t)));
+
+  const movWrap = document.getElementById('movement-tests');
+  const movGrid = document.createElement('div');
+  movGrid.className = 'movement-grid';
+  MOVEMENT_TESTS.forEach(t => movGrid.appendChild(makeMovementCard(t)));
+  movWrap.appendChild(movGrid);
+}
+
+/* ================================================================
+   CALCULATE
+================================================================ */
+function getScore(id) { return scores[id] ?? 0; }
+function sumOf(ids)   { return ids.reduce((a, id) => a + getScore(id), 0); }
+
+function recalc() {
+  const pTotal = sumOf(POSTURE_IDS);
+  const mTotal = sumOf(MOBILITY_IDS);
+  const vTotal = sumOf(MOVEMENT_IDS);
+  const total  = pTotal + mTotal + vTotal;
+
+  setText('score-posture',  pTotal);
+  setText('score-mobility', mTotal);
+  setText('score-movement', vTotal);
+
+  setText('hdr-total',  total);
+  setText('hdr-max',    MAX_TOTAL);
+  setText('final-num',  total);
+  setText('final-max',  MAX_TOTAL);
+  setText('bd-posture', pTotal);
+  setText('bd-mobility',mTotal);
+  setText('bd-movement',vTotal);
+
+  /* Gold gradient always — intensity shifts with score */
+  const pct = total / MAX_TOTAL;
+  const fn  = document.getElementById('final-num');
+  let grad;
+  if      (pct >= 0.75) grad = 'linear-gradient(135deg,#e8d4a0,#c9a96e,#8b7340)';
+  else if (pct >= 0.50) grad = 'linear-gradient(135deg,#c9a96e,#8b7340,#5a4a20)';
+  else if (pct >= 0.25) grad = 'linear-gradient(135deg,#a08050,#6a5230,#3a2e14)';
+  else                  grad = 'linear-gradient(135deg,#5a4a28,#3a3020,#1e1a0e)';
+  fn.style.background = grad;
+  fn.style.webkitBackgroundClip = 'text';
+  fn.style.webkitTextFillColor  = 'transparent';
+  fn.style.backgroundClip = 'text';
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+function updateProgress() {
+  const groups = {
+    posture:  { ids: POSTURE_IDS,   total: POSTURE_IDS.length,   el: 'prog-posture' },
+    mobility: { ids: MOBILITY_IDS,  total: MOBILITY_IDS.length,  el: 'prog-mobility' },
+    movement: { ids: MOVEMENT_IDS,  total: MOVEMENT_IDS.length,  el: 'prog-movement' },
+  };
+  Object.values(groups).forEach(({ ids, total, el }) => {
+    const done = ids.filter(id => scores[id] !== undefined).length;
+    const badge = document.getElementById(el);
+    if (!badge) return;
+    badge.textContent = `${done}/${total}`;
+    badge.className = `section-progress${done === total ? ' done' : ''}`;
+  });
+}
+
+/* ================================================================
+   PERSISTENCE — localStorage
+================================================================ */
+const KEY = 'val-bilan-v2';
+
+function persist() {
+  const inputs = {};
+  document.querySelectorAll('input[id],textarea[id]').forEach(el => {
+    inputs[el.id] = el.value;
+  });
+  try { localStorage.setItem(KEY, JSON.stringify({ scores, inputs })); } catch (_) {}
+}
+
+function restore() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (_) {}
+  if (!data) return;
+
+  /* Restore text inputs */
+  if (data.inputs) {
+    Object.entries(data.inputs).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    });
+  }
+
+  /* Restore scores */
+  if (data.scores) {
+    Object.entries(data.scores).forEach(([testId, val]) => {
+      scores[testId] = val;
+      const grp = document.querySelector(`.score-group[data-test="${testId}"]`);
+      if (grp) {
+        const btn = grp.querySelector(`[data-value="${val}"]`);
+        if (btn) {
+          grp.querySelectorAll('.score-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          grp.dataset.scored = '1';
+        }
+        return;
+      }
+      /* Numeric selects */
+      const sel = document.getElementById('sel_' + testId);
+      if (sel) sel.value = val;
+    });
+  }
+}
+
+function resetAll() {
+  if (!confirm('Start a new assessment? Unsaved data will be lost.')) return;
+  try { localStorage.removeItem(KEY); } catch (_) {}
+  history.replaceState(null, '', 'bilan.html');
+  location.reload();
+}
+
+/* ================================================================
+   HISTORY — save / load
+================================================================ */
+const HIST_KEY = 'val-bilan-history';
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); } catch (_) { return []; }
+}
+
+function saveToHistory() {
+  const inputs = {};
+  document.querySelectorAll('input[id], textarea[id]').forEach(el => { inputs[el.id] = el.value; });
+
+  const name      = document.getElementById('c-name')?.value?.trim() || 'Unnamed';
+  const date      = document.getElementById('c-date')?.value || new Date().toISOString().split('T')[0];
+  const total     = parseInt(document.getElementById('final-num')?.textContent || '0', 10);
+  const existing  = getHistory();
+
+  /* If loaded from history, update in place; otherwise create new */
+  const loadedId = new URLSearchParams(location.search).get('load');
+  let entry;
+
+  if (loadedId) {
+    const idx = existing.findIndex(e => e.id === loadedId);
+    entry = { id: loadedId, savedAt: new Date().toISOString(), name, date, total, inputs, scores: { ...scores } };
+    if (idx >= 0) existing[idx] = entry; else existing.unshift(entry);
+  } else {
+    entry = { id: Date.now().toString(), savedAt: new Date().toISOString(), name, date, total, inputs, scores: { ...scores } };
+    existing.unshift(entry);
+    /* Update URL so future saves update same record */
+    history.replaceState(null, '', `bilan.html?load=${entry.id}`);
+  }
+
+  try { localStorage.setItem(HIST_KEY, JSON.stringify(existing)); } catch (_) {}
+
+  /* Visual feedback */
+  const btn = document.getElementById('btn-save');
+  if (btn) {
+    btn.innerHTML = btn.innerHTML.replace(/Save$/, 'Saved ✓');
+    btn.classList.add('saved');
+    setTimeout(() => { btn.innerHTML = btn.innerHTML.replace(/Saved ✓$/, 'Save'); btn.classList.remove('saved'); }, 2000);
+  }
+}
+
+function loadFromHistory(id) {
+  const entry = getHistory().find(e => e.id === id);
+  if (!entry) return;
+
+  /* Restore inputs */
+  Object.entries(entry.inputs || {}).forEach(([elId, val]) => {
+    const el = document.getElementById(elId);
+    if (el) el.value = val;
+  });
+
+  /* Restore scores */
+  Object.entries(entry.scores || {}).forEach(([testId, val]) => {
+    scores[testId] = val;
+    const grp = document.querySelector(`.score-group[data-test="${testId}"]`);
+    if (grp) {
+      const btn = grp.querySelector(`[data-value="${val}"]`);
+      if (btn) {
+        grp.querySelectorAll('.score-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        grp.dataset.scored = '1';
+      }
+      return;
+    }
+    const sel = document.getElementById('sel_' + testId);
+    if (sel) sel.value = val;
+  });
+}
+
+/* ================================================================
+   INIT
+================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+
+  /* Set today's date as default */
+  const dateEl = document.getElementById('c-date');
+  if (dateEl && !dateEl.value) {
+    dateEl.value = new Date().toISOString().split('T')[0];
+  }
+
+  /* If URL has ?load=id, load from history; otherwise restore draft */
+  const loadId = new URLSearchParams(location.search).get('load');
+  if (loadId) {
+    loadFromHistory(loadId);
+  } else {
+    restore();
+  }
+
+  recalc();
+  updateProgress();
+
+  /* Auto-save draft on any text input */
+  document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+    el.addEventListener('input', persist);
+  });
+});
+</script>
+</body>
+</html>
