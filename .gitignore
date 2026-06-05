@@ -1,0 +1,15 @@
+# Claude settings
+.claude/
+
+# Netlify deploy state
+.netlify/
+
+# Stray path artifact
+Users/
+
+# Sub-projects (separate repos)
+flow-landing/
+reel-life-react/
+
+# OS
+.DS_Store

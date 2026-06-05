@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VD Performance — Personal Trainer Miami · Free Session</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-hover:  #D9BA5E;
+      --gold-dim:    rgba(201,168,76,0.12);
+      --gold-border: rgba(201,168,76,0.3);
+      --black:       #0D0D0D;
+      --charcoal:    #1A1A1A;
+      --dark:        #242424;
+      --white:       #FFFFFF;
+      --cream:       #F2EDE2;
+      --cream-2:     #EDE7D9;
+      --off-white:   #F9F7F4;
+      --text:        #111111;
+      --muted:       #585858;
+      --grey:        #999999;
+      --border:      rgba(0,0,0,0.09);
+      --border-d:    rgba(255,255,255,0.09);
+      --r:           4px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--off-white);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────
+       HEADER
+    ───────────────────────────────── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 52px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    header.scrolled {
+      background: rgba(26,26,26,0.97);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-vd {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 0.06em; color: var(--gold);
+    }
+    .logo-sep { width: 1px; height: 18px; background: rgba(0,0,0,0.2); transition: background 0.3s; }
+    header.scrolled .logo-sep { background: rgba(255,255,255,0.15); }
+    .logo-name {
+      font-size: 0.5rem; font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--text); transition: color 0.3s;
+    }
+    header.scrolled .logo-name { color: rgba(255,255,255,0.65); }
+
+    .header-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--black); background: var(--gold); text-decoration: none;
+      padding: 10px 24px; border-radius: var(--r);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .header-cta:hover { background: var(--gold-hover); transform: translateY(-1px); }
+
+    /* ─────────────────────────────────
+       HERO
+    ───────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 52px 80px;
+    }
+    .hero-center {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
+      color: #8A6B20; margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: #8A6B20; }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 9vw, 10.5rem);
+      line-height: 0.88; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 0;
+    }
+    h1 em { font-style: normal; color: var(--gold); }
+
+    /* ── Main CTA — the star ── */
+    .hero-main-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--black); background: var(--gold); text-decoration: none;
+      padding: 22px 80px; border-radius: var(--r);
+      margin: 44px 0 40px;
+      box-shadow: 0 8px 48px rgba(201,168,76,0.45), 0 2px 8px rgba(201,168,76,0.2);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-main-cta:hover {
+      background: var(--gold-hover); transform: translateY(-2px);
+      box-shadow: 0 14px 60px rgba(201,168,76,0.55);
+      animation: none;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow: 0 8px 48px rgba(201,168,76,0.45), 0 2px 8px rgba(201,168,76,0.2);
+      }
+      50% {
+        box-shadow: 0 8px 72px rgba(201,168,76,0.75), 0 0 0 6px rgba(201,168,76,0.12);
+      }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .hero-main-cta {
+      background-size: 200% auto;
+      background-image: linear-gradient(105deg, var(--gold) 40%, #E8D080 50%, var(--gold) 60%);
+      animation: glow-pulse 2.4s ease-in-out infinite, shimmer 3.5s linear infinite;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem; color: var(--muted);
+      line-height: 1.85; max-width: 460px; margin: 0 auto 28px;
+    }
+
+    /* Trust pills */
+    .trust-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 0;
+    }
+    .trust-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em;
+      color: var(--text); background: rgba(0,0,0,0.05);
+      padding: 7px 13px; border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+    .trust-pill::before { content: '✓'; color: var(--gold); font-weight: 700; }
+
+    /* ─────────────────────────────────
+       APPLY SECTION
+    ───────────────────────────────── */
+    #apply {
+      background: var(--charcoal);
+      padding: 88px 52px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle gold top border accent */
+    #apply::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .apply-inner {
+      max-width: 580px;
+      width: 100%;
+      position: relative; z-index: 1;
+    }
+    .apply-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1; letter-spacing: 0.02em;
+      color: var(--white); margin-bottom: 10px;
+      text-align: center;
+    }
+    .apply-title em { font-style: normal; color: var(--gold); }
+    .apply-sub {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      text-align: center; margin-bottom: 36px; line-height: 1.7;
+    }
+
+    /* FORM */
+    .hero-form {
+      background: var(--white);
+      border: none;
+      border-radius: var(--r);
+      padding: 36px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .hero-form-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .form-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem; letter-spacing: 0.05em;
+      color: var(--text); line-height: 1;
+    }
+    .open-badge {
+      font-size: 0.48rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #7A5F18;
+      background: var(--gold-dim); border: 1px solid var(--gold-border);
+      padding: 5px 10px; border-radius: 100px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .field { margin-bottom: 10px; }
+    .field label {
+      display: block; font-size: 0.5rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .field input, .field select {
+      width: 100%; padding: 12px 14px;
+      background: var(--off-white);
+      border: 1.5px solid rgba(0,0,0,0.12);
+      color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 0.87rem;
+      border-radius: var(--r); outline: none; appearance: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input::placeholder { color: #B0B0B0; }
+    .field input:focus, .field select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 40px; cursor: pointer;
+      background-color: var(--off-white);
+    }
+    .field select option { background: var(--white); }
+
+    .btn-submit {
+      width: 100%; margin-top: 14px; padding: 16px 20px;
+      background: var(--gold); color: var(--black);
+      border: none; cursor: pointer; border-radius: var(--r);
+      font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.32);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-submit:hover { background: var(--gold-hover); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(201,168,76,0.42); }
+
+    .form-trust {
+      margin-top: 12px; text-align: center;
+      font-size: 0.5rem; color: var(--grey); letter-spacing: 0.08em;
+    }
+
+    /* Form wrapper — right column */
+    .hero-form-wrap { /* aligns form in right column */ }
+
+    /* ─────────────────────────────────
+       STATS
+    ───────────────────────────────── */
+    .stats-strip {
+      display: flex;
+      background: var(--charcoal);
+    }
+    .stat { flex: 1; padding: 32px 20px; text-align: center; border-right: 1px solid var(--border-d); }
+    .stat:last-child { border-right: none; }
+    .stat-n {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem;
+      color: var(--gold); display: block; line-height: 1; letter-spacing: 0.04em;
+    }
+    .stat-l {
+      font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-top: 6px; display: block;
+    }
+
+    /* ─────────────────────────────────
+       PILLARS
+    ───────────────────────────────── */
+    #pillars { padding: 100px 52px; background: var(--off-white); }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+
+    .sec-label {
+      font-size: 0.52rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px; display: block;
+    }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+      line-height: 1; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 52px;
+    }
+    .sec-title em { font-style: normal; color: var(--gold); }
+
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .pillar {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 40px 32px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .pillar:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .pillar-n {
+      font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1;
+      color: rgba(201,168,76,0.18); letter-spacing: 0.04em;
+      display: block; margin-bottom: 16px;
+    }
+    .pillar-icon { width: 24px; height: 24px; color: var(--gold); margin-bottom: 14px; }
+    .pillar h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem;
+      letter-spacing: 0.06em; color: var(--text); margin-bottom: 10px;
+    }
+    .pillar p { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+
+    /* ─────────────────────────────────
+       ABOUT
+    ───────────────────────────────── */
+    #about { padding: 100px 52px; background: var(--charcoal); }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 5fr 6fr; gap: 80px; align-items: center;
+    }
+    .about-photo-wrap { position: relative; }
+    .about-photo-wrap img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top; display: block; border-radius: var(--r); }
+    .about-badge {
+      position: absolute; bottom: -16px; left: -16px;
+      background: var(--gold); color: var(--black);
+      padding: 18px 22px; border-radius: var(--r);
+    }
+    .badge-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; display: block; }
+    .badge-l { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+
+    .about-copy .sec-title { color: var(--white); margin-bottom: 0; }
+    .about-copy .sec-title em { color: var(--gold); font-style: normal; }
+    .about-copy p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.9; margin-top: 18px; }
+    .about-copy em { color: var(--gold); font-style: normal; }
+
+    /* ─────────────────────────────────
+       BOTTOM CTA
+    ───────────────────────────────── */
+    #cta-bottom {
+      padding: 100px 52px;
+      background: var(--cream);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-hed {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 6rem);
+      line-height: 0.95; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .cta-hed em { font-style: normal; color: var(--gold); }
+    .cta-sub {
+      font-size: 0.88rem; color: var(--muted);
+      max-width: 400px; margin: 0 auto 36px; line-height: 1.75;
+    }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--black); background: var(--gold); text-decoration: none;
+      padding: 20px 44px; border-radius: var(--r);
+      box-shadow: 0 8px 36px rgba(201,168,76,0.32);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-cta:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 12px 48px rgba(201,168,76,0.42); }
+    .btn-cta svg { width: 15px; height: 15px; transition: transform 0.2s; }
+    .btn-cta:hover svg { transform: translateX(4px); }
+
+    /* ─────────────────────────────────
+       FOOTER
+    ───────────────────────────────── */
+    footer {
+      padding: 24px 52px;
+      background: var(--charcoal);
+      border-top: 1px solid var(--border-d);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-l { font-size: 0.58rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
+    .footer-r { display: flex; gap: 20px; }
+    .footer-r a { font-size: 0.58rem; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+    .footer-r a:hover { color: var(--gold); }
+
+    /* ─────────────────────────────────
+       CONFIRMATION
+    ───────────────────────────────── */
+    #confirmation {
+      display: none;
+      min-height: 100vh;
+      background: var(--cream);
+      align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+      padding: 48px 24px;
+    }
+    .confirm-check {
+      width: 64px; height: 64px;
+      border: 2px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px; color: var(--gold);
+    }
+    .conf-hed {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1; letter-spacing: 0.02em;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .conf-hed em { font-style: normal; color: var(--gold); }
+    #confirmation p { font-size: 0.85rem; color: var(--muted); line-height: 1.8; max-width: 380px; margin: 0 auto; }
+    #confirmation p + p { margin-top: 10px; opacity: 0.6; font-size: 0.73rem; }
+
+    /* ─────────────────────────────────
+       STICKY MOBILE CTA
+    ───────────────────────────────── */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; }
+    .sticky-cta a {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 24px;
+      background: var(--gold); color: var(--black);
+      font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+    }
+
+    /* ─────────────────────────────────
+       MOBILE
+    ───────────────────────────────── */
+    @media (max-width: 960px) {
+      header { padding: 15px 22px; }
+
+      #hero { padding: 100px 22px 60px; }
+      h1 { font-size: clamp(3.5rem, 14vw, 6rem); }
+      .hero-main-cta { padding: 18px 36px; width: 100%; }
+      #apply { padding: 60px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      #pillars { padding: 72px 22px; }
+      .pillars-grid { grid-template-columns: 1fr; gap: 16px; }
+      .pillar { padding: 32px 26px; }
+
+      #about { padding: 72px 22px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-photo-wrap { max-width: 380px; }
+
+      #cta-bottom { padding: 72px 22px; }
+      footer { padding: 20px 22px; padding-bottom: 72px; }
+
+      .sticky-cta { display: block; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-strip { flex-wrap: wrap; }
+      .stat { flex: 1 1 50%; border-bottom: 1px solid var(--border-d); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header">
+  <a href="#" class="logo">
+    <span class="logo-vd">VD</span>
+    <div class="logo-sep"></div>
+    <span class="logo-name">Performance</span>
+  </a>
+  <a href="#apply" class="header-cta">Book Free Session</a>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-center">
+    <p class="eyebrow">Personal Trainer · Miami, FL</p>
+    <h1>Transform<br>your body.<br><em>Reclaim</em><br>your life.</h1>
+    <a href="#apply" class="hero-main-cta">Book My Free Session →</a>
+    <p class="hero-sub">Private 1-on-1 coaching for those who demand real results. 10+ years of expertise, 150+ lives changed. Your first session is completely free.</p>
+    <div class="trust-row">
+      <span class="trust-pill">10+ Years Experience</span>
+      <span class="trust-pill">150+ Clients</span>
+      <span class="trust-pill">Miami, FL</span>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY / FORM -->
+<section id="apply">
+  <div class="apply-inner">
+    <h2 class="apply-title">Book your <em>free</em> session</h2>
+    <p class="apply-sub">One consultation. Zero commitment. I respond within 24 hours.</p>
+    <div class="hero-form">
+      <div class="hero-form-head">
+        <span class="form-title">Your details</span>
+        <span class="open-badge">⚡ New clients open</span>
+      </div>
+      <form id="coaching-form" novalidate>
+        <div class="field">
+          <label for="goal">What is your main goal?</label>
+          <select id="goal" name="goal" required>
+            <option value="" disabled selected>What do you want to achieve?</option>
+            <option>Lose Weight</option>
+            <option>Build Muscle</option>
+            <option>Improve Performance</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="prenom">First Name</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Your first name" required />
+          </div>
+          <div class="field">
+            <label for="tel">Phone Number</label>
+            <input type="tel" id="tel" name="tel" placeholder="+1 (305) 000-0000" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Book My Free Session →</button>
+      </form>
+      <p class="form-trust">🔒 Free · No commitment · Response within 24 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat"><span class="stat-n">10+</span><span class="stat-l">Years Experience</span></div>
+  <div class="stat"><span class="stat-n">150+</span><span class="stat-l">Clients Transformed</span></div>
+  <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Personalized</span></div>
+</div>
+
+<!-- PILLARS -->
+<section id="pillars">
+  <div class="sec-inner">
+    <span class="sec-label">Our Standard</span>
+    <h2 class="sec-title">Three <em>founding</em> principles</h2>
+    <div class="pillars-grid">
+
+      <div class="pillar">
+        <span class="pillar-n">01</span>
+        <svg class="pillar-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 20 9 13 13 17 19 9 25 13"/>
+        </svg>
+        <h3>Results-Driven</h3>
+        <p>Every program is built around one goal: measurable, lasting transformation. Clear benchmarks from day one, and rigorous accountability at every step.</p>
+      </div>
+
+      <div class="pillar">
+        <span class="pillar-n">02</span>
+        <svg class="pillar-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="14 3 17.5 10.5 26 11.5 20 17.5 21.5 26 14 22 6.5 26 8 17.5 2 11.5 10.5 10.5"/>
+        </svg>
+        <h3>5-Star Service</h3>
+        <p>White-glove attention from your first consultation to your final rep. Flexible scheduling, real-time communication, and an experience that respects your time.</p>
+      </div>
+
+      <div class="pillar">
+        <span class="pillar-n">03</span>
+        <svg class="pillar-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="14" cy="14" r="10"/>
+          <polyline points="14 8 14 14 18 17"/>
+        </svg>
+        <h3>Long-Term Vision</h3>
+        <p>No crash diets, no shortcuts. I build foundations that last a lifetime — the habits, the knowledge, and the physical capacity to thrive for decades.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-photo-wrap">
+      <img src="trainer.jpg" alt="Valentin Ducret — VD Performance" />
+      <div class="about-badge">
+        <span class="badge-n">10+</span>
+        <span class="badge-l">Years of Experience</span>
+      </div>
+    </div>
+    <div class="about-copy">
+      <span class="sec-label">About</span>
+      <h2 class="sec-title">Coaching built on <em>mastery</em> and intention</h2>
+      <p>Every client deserves a coach who genuinely knows their craft. With over a decade of hands-on experience, I've helped people of all levels — from complete beginners to competitive athletes — achieve transformations they didn't think were possible.</p>
+      <p>I come to you — your home, your balcony, the park, or your building's gym. Sessions also available at my private studio in <em>Coconut Grove</em>.</p>
+      <p>No templates, no shortcuts. Just tailored programming, honest coaching, and a standard of excellence that shows in every session.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section id="cta-bottom">
+  <span class="sec-label">Limited Availability</span>
+  <h2 class="cta-hed">Ready to <em>start?</em></h2>
+  <p class="cta-sub">One free consultation. No commitment. Just show up and let the work speak for itself.</p>
+  <a href="#apply" class="btn-cta">
+    Book My Free Session
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 8h10M9 4l4 4-4 4"/>
+    </svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-l">© 2025 VD Performance · Miami, FL</span>
+  <div class="footer-r">
+    <a href="#apply">Apply Now</a>
+    <a href="#pillars">Method</a>
+    <a href="#about">About</a>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <a href="#apply">Book My Free Session →</a>
+</div>
+
+<!-- CONFIRMATION -->
+<div id="confirmation">
+  <div class="confirm-check">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <h2 class="conf-hed">Thank you for <em>applying</em></h2>
+  <p>Your application has been received. I'll read it personally and reach out within 24 hours to schedule your complimentary consultation.</p>
+  <p>In the meantime — prepare to commit. Your transformation starts now.</p>
+</div>
+
+<script>
+  // Header scroll
+  const hdr = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Sticky mobile CTA: hide when form visible
+  const sticky = document.getElementById('sticky-cta');
+  const applyEl = document.getElementById('apply');
+  if (sticky && applyEl) {
+    new IntersectionObserver(
+      ([e]) => { sticky.style.display = e.isIntersecting ? 'none' : 'block'; },
+      { threshold: 0.05 }
+    ).observe(applyEl);
+  }
+
+  // Form submit
+  const form = document.getElementById('coaching-form');
+  const conf = document.getElementById('confirmation');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(f => {
+      f.style.borderColor = '';
+      if (!f.value.trim()) { f.style.borderColor = '#c0392b'; valid = false; }
+    });
+    if (!valid) { form.querySelector('[required]').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xbdbpgyo', {
+        method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.querySelectorAll('section, header, footer, .stats-strip, .sticky-cta').forEach(el => el.style.display = 'none');
+        conf.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Book My Free Session →'; btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      btn.textContent = 'Book My Free Session →'; btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
+</body>
+</html>
