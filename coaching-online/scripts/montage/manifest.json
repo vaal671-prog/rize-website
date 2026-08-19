@@ -1,0 +1,82 @@
+{
+  "driveFolderId": "1D5Ws_8AxWa47iG7oH9tan77-KZcF1nTe",
+  "intro": "1jaEqY3_0ZCVlGq4lgUtDL0gRiGI3nNHF",
+  "outro": "11QC5I-1agaVZDJxOIEyArZg8YqgTUMTc",
+  "stepOrder": [
+    "age",
+    "workActivity",
+    "sportLevel",
+    "frequency",
+    "currentSilhouette",
+    "targetSilhouette",
+    "goal",
+    "kgToLose",
+    "pace",
+    "sleepQuality",
+    "stressLevel",
+    "metabolism"
+  ],
+  "clips": {
+    "age": {
+      "18-24": "1qisT3BthwKSCKgh-zvMNTHe_ZFjr1Rxm",
+      "25-34": "1Jd80Jh2sQLNjd1oKiHfRcK1rVSiZ6686",
+      "35-44": "1Vupy4XbWc-8LhKggSvInn2bVbuIF-HQD",
+      "45-54": "1lRNx-JOO85CiKQJqvUqMklEGo5zmbul3",
+      "55+": "1qPeu9h1ls6v9hc8fMJSmqSTKxfDtrkxu"
+    },
+    "workActivity": {
+      "sedentaire": "1rTeAxErgi3YtFtAMpmjPWolQZj0kN2KQ",
+      "modere": "1RP267GqcRzwzSQuaOB7Cqrqtm0jh8ln-",
+      "tres_actif": "1S1phEFaA5AmHl1k230OXKqP2AeIRLUe-"
+    },
+    "sportLevel": {
+      "debutant": "1hYq5Kj2X-ljiHzE_eNLquZJJq15zgMDh",
+      "intermediaire": "1i25XoChkPO1XQxaNBoVsbixqIf_VtvBk",
+      "confirme": "15B3o1PmIK88a0wB56O3aEtHujcaMZmrl"
+    },
+    "frequency": {
+      "3": "1x3i7rFQPqjMxAZQ4_gtSpYdKSg0zqG63",
+      "4": "1EZTKp1rgNHrHq6MjEWvJX-rq_MTxb8zF",
+      "5": "1-pHaM7IC6RgH5x1n5StbM_DnpGP_g0CG"
+    },
+    "currentSilhouette": {
+      "skinny": "1OYGHOFR_yFTiHfvaQLgh_raoP29pO71z",
+      "skinny-fat": "1KBFJmxGHOYsq9Qpy6R4stkm3la_bFB7x",
+      "athletique": "1bwUtx3eG2gpJh93eFj6ysTcU2LWRliVi",
+      "legerement-enrobe": "1u9tNsvbhvBJk8gWdldMd11jdW3goqbfj",
+      "enrobe": "1HCtqm1KnxGbSLk0vS-Bunj8_5kCkhZt4",
+      "tres-enrobe": "16FQhxUwcYSdABruSJycSG4XpqP83HKL3"
+    },
+    "targetSilhouette": {
+      "massif": "1pM_e955Uz9lJcf5wRm1cqfFeh0LrQsLC",
+      "athletique": "1UmCpV8DFGdinv3QguVlacp-m2v74g8i6",
+      "fit": "1QfQ21sDTehBYBaizz9GeEA03LEYc432O",
+      "sec": "1qzyzqheD6if_vqEc0955O2-KAo7D40sD"
+    },
+    "goal": {
+      "perte_gras": "19Mz0vxNx3Fu9o9ec9v9CjwE34kSqLxIe",
+      "prise_muscle": "1egrQfdW63uiiTPqt-ciEDEONN6eXd-rZ"
+    },
+    "kgToLose": {},
+    "pace": {
+      "lente": "1dxWpJvgR6fzAYNTn36peSkfvkr9XmD6h",
+      "moderee": "1Rt_DHriwkLBoop_JfvOZ1XZO-WiJqbAx",
+      "rapide": "13Nwv5z6X3pqjoAp7MvcGNmSMQ-5_JQrn"
+    },
+    "sleepQuality": {
+      "faible": "1oVoCL2BlTklAqsQxHaZbgRDoEsRhmbso",
+      "moyen": "1BRHmGTWCpPC2fX-2Ms1vcABz0BduyNQb",
+      "eleve": "1u3AaJ1w17OM7Is2bzeF1AqjkbZv0AvcX"
+    },
+    "stressLevel": {
+      "faible": "1cxZfg9A3gv2prxRkfUW-CFRklAo1kT7m",
+      "moyen": "1QLXQGX5eEzS6vtbtz0w3R0j7xeXdlEsn",
+      "eleve": "1eSmMMFO25J8iT9olhuujMFP8m2SRL_Jx"
+    },
+    "metabolism": {
+      "faible": "17yMnUizXf2a8Rnw7PdenB3WIdcKBiCAv",
+      "moyen": "1bQWy7InGwMDZ3oobYQn1M8aQ5nNOcjYb",
+      "eleve": "1HfY_LegM8eQW8DIS3YSE1taJhKR50m5G"
+    }
+  }
+}

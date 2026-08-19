@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+:root {
+  /* VD Performance brand tokens — matches the main site (index.html) */
+  --black: #0d0d0d;
+  --charcoal: #1a1a1a;
+  --dark: #242424;
+  --surface: #1a1a1a;
+  --surface-alt: #242424;
+  /* Page background — lighter than --black on purpose: pure #0d0d0d read as
+     too dark for the questionnaire's long, text-heavy screens. */
+  --page: #262625;
+
+  --gold: #c9a84c;
+  --gold-hover: #d9ba5e;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+  --gold-border: rgba(201, 168, 76, 0.3);
+
+  --white: #ffffff;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.6);
+  --muted-2: rgba(255, 255, 255, 0.38);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+
+  --danger: #e35b4f;
+
+  --r: 4px;
+  --r-lg: 10px;
+
+  /* Spring-like easing for premium micro-interactions (press, step transitions). */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-charcoal: var(--charcoal);
+  --color-dark: var(--dark);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-gold: var(--gold);
+  --color-gold-hover: var(--gold-hover);
+  --color-white: var(--white);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-danger: var(--danger);
+  --font-display: var(--font-bebas);
+  --font-body: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font-body), "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), "Bebas Neue", sans-serif;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+}
+
+em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+/* Custom range slider — thumb + track styled to match the gold accent */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--gold) 0%,
+    var(--gold) var(--slider-progress, 50%),
+    rgba(255, 255, 255, 0.12) var(--slider-progress, 50%),
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--black);
+  box-shadow: 0 2px 12px rgba(201, 168, 76, 0.5);
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--black);
+  box-shadow: 0 2px 12px rgba(201, 168, 76, 0.5);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 48px rgba(201, 168, 76, 0.4),
+      0 2px 8px rgba(201, 168, 76, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 8px 64px rgba(201, 168, 76, 0.6),
+      0 0 0 5px rgba(201, 168, 76, 0.1);
+  }
+}
+
+.btn-glow {
+  animation: glow-pulse 2.6s ease-in-out infinite;
+}
+
+/* Very subtle breathing scale, paired with .btn-glow's shadow pulse so the
+   CTA reads as gently "alive" without looking like a flashy ad button. */
+@keyframes cta-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.015);
+  }
+}
+
+.cta-pulse {
+  animation: cta-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-enter {
+  animation: step-in 0.32s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Tactile press feedback — used by the /candidature step components. */
+.press-scale {
+  transition: transform 0.15s var(--ease-premium);
+}
+
+.press-scale:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow {
+    animation: none;
+  }
+  .cta-pulse {
+    animation: none;
+  }
+  .step-enter {
+    animation: none;
+  }
+  .press-scale,
+  .press-scale:active {
+    transition: none;
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Ambient glow + film-grain texture. Opt-in via class (not applied to body
+   globally) so it's easy to reason about which screens use it — currently
+   the questionnaire (QuizShell) and /candidature. */
+.ambient-atmosphere::before,
+.ambient-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ambient-atmosphere::before {
+  z-index: 0;
+  background:
+    radial-gradient(38rem 30rem at 88% -8%, rgba(201, 168, 76, 0.16), transparent 60%),
+    radial-gradient(30rem 26rem at -10% 108%, rgba(201, 168, 76, 0.09), transparent 60%);
+  animation: ambient-drift 22s ease-in-out infinite alternate;
+}
+
+.ambient-atmosphere::after {
+  z-index: 0;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+@keyframes ambient-drift {
+  from {
+    opacity: 0.85;
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-1.5%, 1.5%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-atmosphere::before {
+    animation: none;
+  }
+}
+
+/* Ambient fake cursor — /resultats only (components/results/AnimatedCursor).
+   Position is driven by JS (measures each [data-cursor-target] element so it
+   lands precisely on whatever the video is narrating); this keyframe is just
+   the one-shot "tap" pulse fired at each stop. */
+@keyframes cursor-tap-once {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.7);
+    opacity: 0;
+  }
+}
