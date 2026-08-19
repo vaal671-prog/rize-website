@@ -33,6 +33,7 @@ import json
 import re
 import subprocess
 import sys
+import traceback
 from pathlib import Path
 
 MANIFEST_PATH = Path(__file__).parent / "manifest.json"
@@ -228,6 +229,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     try:
         build(args.answers, args.out, args.cache_dir)
-    except subprocess.CalledProcessError as e:
-        print(f"ffmpeg failed: {e}", file=sys.stderr)
+    except Exception:
+        traceback.print_exc()
         sys.exit(1)
