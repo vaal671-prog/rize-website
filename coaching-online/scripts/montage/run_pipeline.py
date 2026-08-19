@@ -19,7 +19,7 @@ from nutrition import compute_macros
 from sheets_client import read_rows, write_result_link
 
 HERE = Path(__file__).parent
-VENV_PY = HERE / ".venv" / "bin" / "python"
+VENV_PY = sys.executable
 RESULTS_BASE = "https://vd-performance-bilan.netlify.app/resultats"
 
 
