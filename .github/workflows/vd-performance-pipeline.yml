@@ -33,6 +33,7 @@ jobs:
 
       - name: Run pipeline
         env:
+          PYTHONUNBUFFERED: "1"
           GOOGLE_SERVICE_ACCOUNT_FILE: service-account.json
           R2_ACCOUNT_ENDPOINT: ${{ secrets.R2_ACCOUNT_ENDPOINT }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
