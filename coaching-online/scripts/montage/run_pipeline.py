@@ -107,7 +107,7 @@ def process_row(row: dict) -> None:
     print(f"  -> wrote result link for row {row['_row']}: {final_url}")
 
     try:
-        send_result_link(phone, prenom, final_url)
+        send_result_link(phone, prenom, final_url, row["Activité travail"])
     except Exception as e:
         print(f"  WhatsApp send failed (non-fatal, link is still saved in the Sheet): {e}", file=sys.stderr)
 
