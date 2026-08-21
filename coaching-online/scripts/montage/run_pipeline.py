@@ -16,6 +16,7 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 from nutrition import compute_macros
+from setsmart_client import send_result_link
 from sheets_client import read_rows, write_result_link
 
 HERE = Path(__file__).parent
@@ -104,6 +105,11 @@ def process_row(row: dict) -> None:
 
     write_result_link(row["_row"], final_url)
     print(f"  -> wrote result link for row {row['_row']}: {final_url}")
+
+    try:
+        send_result_link(phone, prenom, final_url)
+    except Exception as e:
+        print(f"  WhatsApp send failed (non-fatal, link is still saved in the Sheet): {e}", file=sys.stderr)
 
     answers_path.unlink(missing_ok=True)
     out_path.unlink(missing_ok=True)
