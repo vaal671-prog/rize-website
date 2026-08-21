@@ -46,7 +46,7 @@ def build_message(link: str, work_activity: str) -> str:
     message = f"Voilà comme convenu la vidéo de ton analyse 👇\n{link}"
     activity_label = ACTIVITY_LABELS.get(work_activity)
     if activity_label:
-        message += f"\n\nD'ailleurs tu as mis {activity_label}, tu fais quoi comme job ?"
+        message += f"\nD'ailleurs tu as mis {activity_label}, tu fais quoi comme job ?"
     return message
 
 
