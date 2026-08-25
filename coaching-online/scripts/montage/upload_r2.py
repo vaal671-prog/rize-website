@@ -21,7 +21,7 @@ REQUIRED_KEYS = ["R2_ACCOUNT_ENDPOINT", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KE
 
 def load_env() -> dict[str, str]:
     if all(k in os.environ for k in REQUIRED_KEYS):
-        return {k: os.environ[k] for k in REQUIRED_KEYS}
+        return {k: os.environ[k].strip() for k in REQUIRED_KEYS}
 
     env = {}
     for line in ENV_PATH.read_text().splitlines():
@@ -33,21 +33,30 @@ def load_env() -> dict[str, str]:
     return env
 
 
-def upload(file_path: Path, key: str) -> str:
-    env = load_env()
-    client = boto3.client(
+def _client(env: dict[str, str]):
+    return boto3.client(
         "s3",
         endpoint_url=env["R2_ACCOUNT_ENDPOINT"],
         aws_access_key_id=env["R2_ACCESS_KEY_ID"],
         aws_secret_access_key=env["R2_SECRET_ACCESS_KEY"],
         region_name="auto",
     )
-    client.upload_file(
+
+
+def upload(file_path: Path, key: str) -> str:
+    env = load_env()
+    _client(env).upload_file(
         str(file_path),
         env["R2_BUCKET"],
         key,
         ExtraArgs={"ContentType": "video/mp4"},
     )
+    return f"{env['R2_PUBLIC_URL']}/{key}"
+
+
+def upload_bytes(data: bytes, key: str, content_type: str) -> str:
+    env = load_env()
+    _client(env).put_object(Bucket=env["R2_BUCKET"], Key=key, Body=data, ContentType=content_type)
     return f"{env['R2_PUBLIC_URL']}/{key}"
 
 

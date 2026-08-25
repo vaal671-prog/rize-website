@@ -9,12 +9,13 @@ Requires GOOGLE_SERVICE_ACCOUNT_FILE (path to the service-account JSON) and
 the R2_* vars (see .env / upload_r2.py) in the environment.
 """
 
+import json
 import re
 import subprocess
 import sys
 from pathlib import Path
-from urllib.parse import urlencode
 
+import upload_r2
 from nutrition import compute_macros
 from setsmart_client import send_result_link
 from sheets_client import read_rows, write_result_link
@@ -101,7 +102,13 @@ def process_row(row: dict) -> None:
         "phone": phone,
         "email": email,
     }
-    final_url = f"{RESULTS_BASE}?{urlencode(params)}"
+    # The full profile goes to R2 as a small JSON blob instead of a giant
+    # query string — WhatsApp truncates long links (hides content behind
+    # "See more"), and the encoded params were pushing well past that.
+    upload_r2.upload_bytes(
+        json.dumps(params).encode(), f"data/{slug}.json", "application/json"
+    )
+    final_url = f"{RESULTS_BASE}?id={slug}"
 
     write_result_link(row["_row"], final_url)
     print(f"  -> wrote result link for row {row['_row']}: {final_url}")

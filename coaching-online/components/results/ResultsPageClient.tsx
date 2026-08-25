@@ -25,10 +25,22 @@ function toNumber(value: string | null): number | null {
   return Number.isNaN(n) ? null : n;
 }
 
-export default function ResultsPageClient() {
+interface ResultsPageClientProps {
+  // Resolved server-side from R2 (data/<slug>.json) for the short "?id="
+  // link format. Older test links with every field in the query string
+  // pass no data and fall back to reading searchParams directly below.
+  data?: Record<string, string> | null;
+}
+
+export default function ResultsPageClient({ data }: ResultsPageClientProps) {
   const searchParams = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+
+  const get = (key: string): string | null => {
+    if (data) return data[key] ?? null;
+    return searchParams.get(key);
+  };
 
   // Tapping anywhere on the card unmutes — the coach's video is the whole
   // point of this page, so the "tap to unmute" affordance shouldn't be
@@ -51,33 +63,33 @@ export default function ResultsPageClient() {
     if (!next) video.play().catch(() => {});
   }
 
-  const prenom = searchParams.get("prenom") ?? "";
-  const age = searchParams.get("age");
-  const silhouette = searchParams.get("silhouette");
-  const goalSilhouette = searchParams.get("goalSilhouette");
-  const niveau = searchParams.get("niveau");
-  const activity = searchParams.get("activity");
-  const seances = searchParams.get("seances");
-  const taille = searchParams.get("taille");
-  const poids = searchParams.get("poids");
-  const objectif = searchParams.get("objectif");
-  const goalKg = searchParams.get("goalKg");
-  const approche = searchParams.get("approche");
+  const prenom = get("prenom") ?? "";
+  const age = get("age");
+  const silhouette = get("silhouette");
+  const goalSilhouette = get("goalSilhouette");
+  const niveau = get("niveau");
+  const activity = get("activity");
+  const seances = get("seances");
+  const taille = get("taille");
+  const poids = get("poids");
+  const objectif = get("objectif");
+  const goalKg = get("goalKg");
+  const approche = get("approche");
   // Played directly in a native <video> element (see VideoBubble), so this
   // must be a direct, playable file URL — not a Google Drive preview link
   // (Drive's iframe can't be muted/autoplayed/looped programmatically).
-  const videoUrl = searchParams.get("videoUrl");
-  const phone = searchParams.get("phone");
-  const email = searchParams.get("email");
+  const videoUrl = get("videoUrl");
+  const phone = get("phone");
+  const email = get("email");
 
-  const calories = toNumber(searchParams.get("calories"));
-  const maintenance = toNumber(searchParams.get("maintenance"));
-  const proteines = toNumber(searchParams.get("proteines"));
-  const glucides = toNumber(searchParams.get("glucides"));
-  const lipides = toNumber(searchParams.get("lipides"));
-  const sommeil = toNumber(searchParams.get("sommeil")) ?? 0;
-  const stress = toNumber(searchParams.get("stress")) ?? 0;
-  const metabolisme = toNumber(searchParams.get("metabolisme")) ?? 0;
+  const calories = toNumber(get("calories"));
+  const maintenance = toNumber(get("maintenance"));
+  const proteines = toNumber(get("proteines"));
+  const glucides = toNumber(get("glucides"));
+  const lipides = toNumber(get("lipides"));
+  const sommeil = toNumber(get("sommeil")) ?? 0;
+  const stress = toNumber(get("stress")) ?? 0;
+  const metabolisme = toNumber(get("metabolisme")) ?? 0;
 
   // Order matters here: it drives both the reading order on screen and the
   // path the ambient cursor animation walks through (see AnimatedCursor),
