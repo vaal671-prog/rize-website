@@ -2,7 +2,11 @@ name: VD Performance Video Pipeline
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    # Offset a few minutes past the hour/20-min marks — GitHub explicitly
+    # warns that schedules landing exactly on :00/:20/:40 queue behind
+    # everyone else's identical schedules and are more likely to be
+    # delayed or dropped under load.
+    - cron: "4,24,44 * * * *"
   workflow_dispatch: {}
 
 jobs:
@@ -14,10 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # ubuntu-latest ships ffmpeg preinstalled, but pin an explicit install
+      # instead of relying on that (third-party actions like
+      # FedericoCarboni/setup-ffmpeg have flaky version-parsing failures —
+      # apt-get is boring and reliable).
       - name: Install ffmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          ffmpeg-version: release
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - uses: actions/setup-python@v5
         with:
