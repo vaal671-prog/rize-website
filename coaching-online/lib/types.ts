@@ -18,7 +18,6 @@ export interface Answers {
   firstName: string;
   email: string;
   whatsapp: string;
-  consent: boolean;
 }
 
 export const INITIAL_ANSWERS: Answers = {
@@ -39,7 +38,6 @@ export const INITIAL_ANSWERS: Answers = {
   firstName: "",
   email: "",
   whatsapp: "",
-  consent: false,
 };
 
 export interface ChoiceOption {

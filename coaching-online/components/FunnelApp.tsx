@@ -207,7 +207,6 @@ export default function FunnelApp() {
           firstName={answers.firstName}
           email={answers.email}
           whatsapp={answers.whatsapp}
-          consent={answers.consent}
           onFieldChange={(field, value) => updateAnswer(field, value as never)}
           onSubmit={submitAnswers}
           submitting={submitting}

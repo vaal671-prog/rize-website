@@ -11,8 +11,7 @@ interface FinalFormStepProps {
   firstName: string;
   email: string;
   whatsapp: string;
-  consent: boolean;
-  onFieldChange: (field: "firstName" | "email" | "whatsapp" | "consent", value: string | boolean) => void;
+  onFieldChange: (field: "firstName" | "email" | "whatsapp", value: string) => void;
   onSubmit: () => void;
   submitting: boolean;
   error: string | null;
@@ -29,7 +28,6 @@ export default function FinalFormStep({
   firstName,
   email,
   whatsapp,
-  consent,
   onFieldChange,
   onSubmit,
   submitting,
@@ -48,7 +46,7 @@ export default function FinalFormStep({
     onFieldChange("whatsapp", `${nextCode} ${nextNumber}`.trim());
   };
 
-  const canSubmit = firstName.trim() && email.trim() && localNumber.trim() && consent && !submitting;
+  const canSubmit = firstName.trim() && email.trim() && localNumber.trim() && !submitting;
 
   return (
     <div>
@@ -119,21 +117,6 @@ export default function FinalFormStep({
             />
           </div>
         </div>
-
-        <label className="mt-2 flex cursor-pointer items-start gap-3 text-[0.78rem] leading-snug text-muted">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(e) => onFieldChange("consent", e.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--gold)]"
-            required
-          />
-          <span>
-            J&apos;accepte que mes données soient utilisées uniquement pour me
-            transmettre mes résultats personnalisés. Aucune utilisation
-            commerciale.
-          </span>
-        </label>
 
         {error ? <p className="text-[0.8rem] text-danger">{error}</p> : null}
 
