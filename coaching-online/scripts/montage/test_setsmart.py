@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 Standalone test for the SetSmart WhatsApp send — skips the full video
-pipeline (~5-6 min) to check delivery quickly once the "resultatvideo"
-template is approved.
+pipeline (~5-6 min) to check delivery quickly. Sends the opener template
+(SETSMART_TEMPLATE_NAME) and stashes a test link in the contact's notes,
+same as the real pipeline.
 
 Reads SETSMART_API_KEY / SETSMART_TEMPLATE_NAME from a local .env (same
 loader convention as upload_r2.py) since this is meant to run locally, not
@@ -21,7 +22,7 @@ for line in ENV_PATH.read_text().splitlines():
     key, value = line.split("=", 1)
     os.environ.setdefault(key.strip(), value.strip())
 
-from setsmart_client import send_result_link
+from setsmart_client import send_video_ready_ping
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -29,4 +30,4 @@ if __name__ == "__main__":
         sys.exit(1)
     phone = sys.argv[1]
     work_activity = sys.argv[2] if len(sys.argv) > 2 else "modere"
-    send_result_link(phone, "Test", "https://vd-performance-bilan.netlify.app/resultats?prenom=Test", work_activity)
+    send_video_ready_ping(phone, "Test", "https://vd-performance-bilan.netlify.app/resultats?prenom=Test", work_activity)

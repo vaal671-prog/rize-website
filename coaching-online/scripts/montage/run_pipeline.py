@@ -17,7 +17,7 @@ from pathlib import Path
 
 import upload_r2
 from nutrition import compute_macros
-from setsmart_client import send_result_link
+from setsmart_client import send_video_ready_ping
 from sheets_client import read_rows, write_result_link
 
 HERE = Path(__file__).parent
@@ -114,7 +114,7 @@ def process_row(row: dict) -> None:
     print(f"  -> wrote result link for row {row['_row']}: {final_url}")
 
     try:
-        send_result_link(phone, prenom, final_url, row["Activité travail"])
+        send_video_ready_ping(phone, prenom, final_url, row["Activité travail"])
     except Exception as e:
         print(f"  WhatsApp send failed (non-fatal, link is still saved in the Sheet): {e}", file=sys.stderr)
 
