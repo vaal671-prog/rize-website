@@ -44,12 +44,23 @@ ACTIVITY_LABELS = {
 
 
 def normalize_phone_fr(raw: str) -> str:
-    """"0033 6 12 34 56 78" / "06 12 34 56 78" / "+33612345678" -> "33612345678"."""
+    """Best-effort "country code + number, no plus" from the shapes the funnel
+    produces (the phone field is a free-text country-code box + a local box):
+
+      "+33 6 12 34 56 78"   -> "33612345678"
+      "+33 06 12 34 56 78"  -> "33612345678"   (drops the leftover trunk 0)
+      "0033 6 12 34 56 78"  -> "33612345678"
+      "06 12 34 56 78"      -> "33612345678"   (bare FR mobile)
+      "001 305 812 5840"    -> "1305812 5840"  -> "13058125840" (00 = IDD prefix)
+      "+1 305 812 5840"     -> "13058125840"
+    """
     digits = re.sub(r"\D", "", raw)
-    if digits.startswith("0033"):
+    if digits.startswith("00"):            # international call prefix (0033.., 001..)
         digits = digits[2:]
-    elif digits.startswith("0") and len(digits) == 10:
+    elif digits.startswith("0") and len(digits) == 10:  # bare FR national number
         digits = "33" + digits[1:]
+    if digits.startswith("330"):           # "+33 06.." left the trunk 0 in
+        digits = "33" + digits[3:]
     return digits
 
 
